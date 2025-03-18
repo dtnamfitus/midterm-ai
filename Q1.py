@@ -1,6 +1,7 @@
 from collections import deque
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
 # Define the 15x15 maze grid: 0 = open, 1 = blocked
 maze = np.array([
@@ -78,8 +79,17 @@ def dfs(maze, start, goal):
         return path, failed_paths
     return None, failed_paths
 
+import time
+
+def measure_time(func, *args):
+    start_time = time.perf_counter()  # Độ chính xác cao hơn
+    result = func(*args)
+    end_time = time.perf_counter()
+    return result, end_time - start_time
+
+
 # Chọn thuật toán bạn muốn chạy ở đây (bfs hoặc dfs):
-algorithm = 'dfs'  # Thay đổi 'bfs' hoặc 'dfs' để chạy thuật toán tương ứng
+algorithm = 'bfs'  # Thay đổi 'bfs' hoặc 'dfs' để chạy thuật toán tương ứng
 
 if algorithm == 'bfs':
     path = bfs(maze, start, goal)
@@ -109,6 +119,13 @@ ax.legend()
 ax.set_title(f'{algorithm.upper()} Maze Path')
 plt.show()
 
+# Chạy BFS và đo thời gian
+path_bfs, exec_time_bfs = measure_time(bfs, maze, start, goal)
+print(f"BFS Execution Time: {exec_time_bfs:.6f} seconds")
+
+# # Chạy DFS và đo thời gian
+# (path_dfs, failed_dfs), exec_time_dfs = measure_time(dfs, maze, start, goal)
+# print(f"DFS Execution Time: {exec_time_dfs:.6f} seconds")
 # Output path coordinates
 if path:
     print("Path found:", path)
