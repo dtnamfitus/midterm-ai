@@ -82,11 +82,10 @@ def dfs(maze, start, goal):
 import time
 
 def measure_time(func, *args):
-    start_time = time.perf_counter()  # Độ chính xác cao hơn
+    start_time = time.perf_counter()  
     result = func(*args)
     end_time = time.perf_counter()
     return result, end_time - start_time
-
 
 # Chọn thuật toán bạn muốn chạy ở đây (bfs hoặc dfs):
 algorithm = 'bfs'  # Thay đổi 'bfs' hoặc 'dfs' để chạy thuật toán tương ứng
